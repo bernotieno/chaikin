@@ -1,3 +1,8 @@
+use ui;
+
 fn main() {
-    println!("Hello, world!");
+    nannou::app(model)
+        .update(update)
+        .run();
 }
+
