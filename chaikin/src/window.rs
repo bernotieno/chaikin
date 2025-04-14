@@ -1,6 +1,7 @@
 use nannou::prelude::*;
 use crate::model::Model;
-// use crate::ui;
+use crate::ui;
+
 pub fn model(app: &App) -> Model {
     // Create a window
     app.new_window()
