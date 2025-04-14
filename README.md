@@ -16,58 +16,61 @@ With each iteration, the curve becomes smoother and approaches a quadratic B-spl
 ## Features
 
 - Interactive canvas for placing control points
-- Visualization of control points as small circles
+- Visualization of control points as small circles (red for normal, blue for selected)
 - Step-by-step animation of Chaikin's algorithm (7 steps)
-- Automatic animation restart after completion
+- Point dragging functionality for adjusting control points
 - Special case handling:
-  - Single point: Just displays the point
-  - Two points: Draws a straight line
+  - Single point: Displays a red dot
+  - Two points: Draws a straight line between points
   - Three or more points: Applies Chaikin's algorithm
 
 ## Controls
 
-- **Left Mouse Button**: Place control points on the canvas
-- **Enter**: Start the animation (if points are present)
+- **Left Mouse Button**: Place or drag control points
+- **Enter**: Start the animation (requires 3 or more points)
+- **C**: Clear all points
 - **Escape**: Quit the application
 
 ## Requirements
 
-- [List of dependencies/libraries]
-- [Minimum system requirements]
+- Rust 2021 Edition or later
+- nannou graphics library
+- Linux with OpenGL support
 
 ## Setup and Installation
 
 1. Clone this repository:
-   ```
-   git clone [repository-url]
-   ```
-
-2. Install dependencies:
-   ```
-   [dependency installation commands]
+   ```bash
+   git clone https://github.com/yourusername/chaikin.git
+   cd chaikin
    ```
 
-3. Run the application:
-   ```
-   [command to run the application]
+2. Build and run the application:
+   ```bash
+   cargo run
    ```
 
 ## Implementation Details
 
-The application is structured into three main components:
+The application is structured into four main components:
 
-1. **UI and Input Handling**: Manages the canvas, user input, and point visualization
-2. **Chaikin's Algorithm**: Implements the core curve subdivision logic
-3. **Animation System**: Controls the step-by-step visualization and timing
+1. **UI ([`ui.rs`](src/ui.rs))**: Handles rendering, user input, and point visualization
+2. **Model ([`model.rs`](src/model.rs))**: Manages application state and data structures
+3. **Chaikin's Algorithm ([`chaikin.rs`](src/chaikin.rs))**: Implements the curve subdivision logic
+4. **Window Management ([`window.rs`](src/window.rs))**: Controls the application window and update loop
 
 ## Development
 
-This project was developed as a 24-hour challenge by a team of three developers, each focusing on a different aspect of the application to enable parallel development.
+This project was developed as a 24-hour challenge by a team of three developers:
+- Person 1: UI and Input Handling
+- Person 2: Chaikin's Algorithm Implementation
+- Person 3: Animation and Integration
 
 ## License
 
-[License information]
+MIT License
 
 ## Acknowledgments
 
-- [Any references or resources used]
+- [Chaikin's Algorithm Paper](https://www.cs.unc.edu/~dm/UNC/COMP258/LECTURES/Chaikins-Algorithm.pdf)
+- [nannou Creative Coding Framework](https://nannou.cc/)
