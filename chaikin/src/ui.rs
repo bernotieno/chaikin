@@ -128,3 +128,30 @@ pub fn mouse_moved(app: &App, model: &mut Model, pos: Vec2) {
         }
     }
 }
+
+pub fn key_pressed(app: &App, model: &mut Model, key: Key) {
+    match key {
+        Key::Return => {
+            // Start animation on Enter if there are enough points
+            if model.points.len() < 3 {
+                model.set_message("Need at least 3 points to animate", app.time);
+                return;
+            }
+            
+            prepare_animation(model);
+            model.animating = true;
+            model.step = 0;
+            model.last_animation_time = app.time;
+        },
+        Key::Escape => {
+            // Quit application on Escape
+            app.quit();
+        },
+        Key::C => {
+            // Clear points on C key
+            model.clear();
+            model.set_message("Canvas cleared", app.time);
+        },
+        _ => {}
+    }
+}
