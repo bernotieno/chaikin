@@ -120,3 +120,11 @@ pub fn mouse_released(_app: &App, model: &mut Model, button: MouseButton) {
         model.drag_index = None;
     }
 }
+
+pub fn mouse_moved(app: &App, model: &mut Model, pos: Vec2) {
+    if let Some(idx) = model.drag_index {
+        if idx < model.points.len() {
+            model.points[idx].position = pos;
+        }
+    }
+}
