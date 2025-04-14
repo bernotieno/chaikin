@@ -41,14 +41,18 @@ With each iteration, the curve becomes smoother and approaches a quadratic B-spl
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/chaikin.git
+   git clone https://learn.zone01kisumu.ke/git/bernaotieno/chaikin.git
    cd chaikin
    ```
 
-2. Build and run the application:
+2. Navigate to the chaikin where we can run the program :
    ```bash
-   cargo run
+   cd chaikin 
    ```
+3. Run the program :
+```bash 
+cargo run 
+```
 
 ## Implementation Details
 
@@ -59,18 +63,7 @@ The application is structured into four main components:
 3. **Chaikin's Algorithm ([`chaikin.rs`](src/chaikin.rs))**: Implements the curve subdivision logic
 4. **Window Management ([`window.rs`](src/window.rs))**: Controls the application window and update loop
 
-## Development
-
-This project was developed as a 24-hour challenge by a team of three developers:
-- Person 1: UI and Input Handling
-- Person 2: Chaikin's Algorithm Implementation
-- Person 3: Animation and Integration
 
 ## License
 
 MIT License
-
-## Acknowledgments
-
-- [Chaikin's Algorithm Paper](https://www.cs.unc.edu/~dm/UNC/COMP258/LECTURES/Chaikins-Algorithm.pdf)
-- [nannou Creative Coding Framework](https://nannou.cc/)
