@@ -155,3 +155,10 @@ pub fn key_pressed(app: &App, model: &mut Model, key: Key) {
         _ => {}
     }
 }
+
+pub fn draw_point(draw: &Draw, position: Point2, size: f32, color: Rgb<u8>) {
+    draw.ellipse()
+        .xy(position)
+        .radius(size)
+        .color(color);
+}
