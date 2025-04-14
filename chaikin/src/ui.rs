@@ -85,3 +85,27 @@ pub fn view(app: &App, model: &Model, frame: Frame) {
 
     draw.to_frame(app, &frame).unwrap();
 }
+
+pub fn mouse_pressed(app: &App, model: &mut Model, button: MouseButton) {
+    if button != MouseButton::Left || model.animating {
+        return;
+    }
+
+    let mouse_pos = app.mouse.position();
+    
+    // Check if clicking on an existing point (for dragging)
+    for (i, point) in model.points.iter_mut().enumerate() {
+        let distance = mouse_pos.distance(point.position);
+        if distance < 10.0 {
+            point.selected = true;
+            model.drag_index = Some(i);
+            return;
+        }
+    }
+    
+    // Add a new point if not dragging
+    model.points.push(Point {
+        position: mouse_pos,
+        selected: false,
+    });
+}
