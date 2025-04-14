@@ -109,3 +109,14 @@ pub fn mouse_pressed(app: &App, model: &mut Model, button: MouseButton) {
         selected: false,
     });
 }
+
+pub fn mouse_released(_app: &App, model: &mut Model, button: MouseButton) {
+    if button == MouseButton::Left {
+        if let Some(idx) = model.drag_index {
+            if idx < model.points.len() {
+                model.points[idx].selected = false;
+            }
+        }
+        model.drag_index = None;
+    }
+}
