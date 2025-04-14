@@ -1,3 +1,8 @@
+use nannou::prelude::*;
+use crate::model::{Model, Point};
+use crate::chaikin::prepare_animation;
+
+
 pub fn view(app: &App, model: &Model, frame: Frame) {
     let draw = app.draw();
     
@@ -84,4 +89,81 @@ pub fn view(app: &App, model: &Model, frame: Frame) {
         .y(270.0);
 
     draw.to_frame(app, &frame).unwrap();
+}
+
+pub fn mouse_pressed(app: &App, model: &mut Model, button: MouseButton) {
+    if button != MouseButton::Left || model.animating {
+        return;
+    }
+
+    let mouse_pos = app.mouse.position();
+    
+    // Check if clicking on an existing point (for dragging)
+    for (i, point) in model.points.iter_mut().enumerate() {
+        let distance = mouse_pos.distance(point.position);
+        if distance < 10.0 {
+            point.selected = true;
+            model.drag_index = Some(i);
+            return;
+        }
+    }
+    
+    // Add a new point if not dragging
+    model.points.push(Point {
+        position: mouse_pos,
+        selected: false,
+    });
+}
+
+pub fn mouse_released(_app: &App, model: &mut Model, button: MouseButton) {
+    if button == MouseButton::Left {
+        if let Some(idx) = model.drag_index {
+            if idx < model.points.len() {
+                model.points[idx].selected = false;
+            }
+        }
+        model.drag_index = None;
+    }
+}
+
+pub fn mouse_moved(_app: &App, model: &mut Model, pos: Vec2) {
+    if let Some(idx) = model.drag_index {
+        if idx < model.points.len() {
+            model.points[idx].position = pos;
+        }
+    }
+}
+
+pub fn key_pressed(app: &App, model: &mut Model, key: Key) {
+    match key {
+        Key::Return => {
+            // Start animation on Enter if there are enough points
+            if model.points.len() < 3 {
+                model.set_message("Need at least 3 points to animate", app.time);
+                return;
+            }
+            
+            prepare_animation(model);
+            model.animating = true;
+            model.step = 0;
+            model.last_animation_time = app.time;
+        },
+        Key::Escape => {
+            // Quit application on Escape
+            app.quit();
+        },
+        Key::C => {
+            // Clear points on C key
+            model.clear();
+            model.set_message("Canvas cleared", app.time);
+        },
+        _ => {}
+    }
+}
+
+pub fn draw_point(draw: &Draw, position: Point2, size: f32, color: Rgb<u8>) {
+    draw.ellipse()
+        .xy(position)
+        .radius(size)
+        .color(color);
 }
