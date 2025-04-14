@@ -1,3 +1,8 @@
+use nannou::prelude::*;
+use crate::model::{Model, Point};
+use crate::chaikin::prepare_animation;
+
+
 pub fn view(app: &App, model: &Model, frame: Frame) {
     let draw = app.draw();
     
@@ -121,7 +126,7 @@ pub fn mouse_released(_app: &App, model: &mut Model, button: MouseButton) {
     }
 }
 
-pub fn mouse_moved(app: &App, model: &mut Model, pos: Vec2) {
+pub fn mouse_moved(_app: &App, model: &mut Model, pos: Vec2) {
     if let Some(idx) = model.drag_index {
         if idx < model.points.len() {
             model.points[idx].position = pos;
